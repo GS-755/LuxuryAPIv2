@@ -59,6 +59,9 @@ namespace LuxuryAPIv2.Adapters
                 }
                 // Assign fetched data to HairServices
                 HairServices = fetchList;
+                // Close the reader & connection
+                reader.Close();
+                conn.Close();
 
                 // Return data
                 return fetchList;
