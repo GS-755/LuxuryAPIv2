@@ -1,8 +1,8 @@
 using System;
-using System.Web.Http;
 using System.Web.Mvc;
-using LuxuryAPIv2.Areas.HelpPage.ModelDescriptions;
+using System.Web.Http;
 using LuxuryAPIv2.Areas.HelpPage.Models;
+using LuxuryAPIv2.Areas.HelpPage.ModelDescriptions;
 
 namespace LuxuryAPIv2.Areas.HelpPage.Controllers
 {
