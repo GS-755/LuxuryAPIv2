@@ -24,7 +24,13 @@ namespace LuxuryAPIv2.Adapters
         // Method(s) that direct-interact with server
         public static int GetCurrentId()
         {
-            return FetchData().Max(k => k.IdSvc);
+            List<HairService> fetchedData = FetchData();
+            if(fetchedData != null)
+            {
+                return fetchedData.Max(k => k.IdSvc);
+            }
+
+            return -1;
         }
         public static List<HairService> FetchData()
         {
@@ -51,15 +57,15 @@ namespace LuxuryAPIv2.Adapters
                     // Add data to linked list 
                     fetchList.Add(new HairService(IdSvc, Name, Price, IdCate));
                 }
-                // Close the reader & connection
-                reader.Close();
-                conn.Close();
-                // Assign fetched data to ListCate
+                // Assign fetched data to HairServices
                 HairServices = fetchList;
 
                 // Return data
                 return fetchList;
             }
+            // Close the reader & connection
+            reader.Close();
+            conn.Close();
 
             return null;
         }
@@ -84,6 +90,26 @@ namespace LuxuryAPIv2.Adapters
             }
 
             return null;
+        }
+        public static string InsertData(HairService hairService)
+        {
+            // Open connection
+            conn.Open();
+            // Build SQL Executor
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = @"INSERT INTO HairServices VALUES(@IdSvc, @Name, @Price, @IdCate);";
+            cmd.Parameters.AddWithValue("@IdSvc", hairService.IdSvc);
+            cmd.Parameters.AddWithValue("@Name", hairService.Name);
+            cmd.Parameters.AddWithValue("@Price", hairService.Price);
+            cmd.Parameters.AddWithValue("@IdCate", hairService.IdCate);
+            // Build SQL Non-query executor
+            int rows_affected = cmd.ExecuteNonQuery();
+            string result = $"({rows_affected}) row(s) affected!";
+            // Close SQL connection
+            conn.Close();
+
+            return result;
         }
     }
 }
