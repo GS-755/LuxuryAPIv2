@@ -1,0 +1,21 @@
+# Solution catalog
+.vs/
+LuxuryAPIv2/.vs/
+packages/
+.vscode/
+
+# Project debug assets
+LuxuryAPIv2/App_Data/
+LuxuryAPIv2/bin/LuxuryAPIv2.pdb
+LuxuryAPIv2/bin/LuxuryAPIv2.dll
+LuxuryAPIv2/obj/Debug/LuxuryAPIv2.csproj.AssemblyReference.cache
+LuxuryAPIv2/obj/Debug/LuxuryAPIv2.csproj.CopyComplete
+LuxuryAPIv2/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+
+# Private config 
+LuxuryAPIv2/Web.config
+LuxuryAPIv2/Web.Debug.config
+LuxuryAPIv2/Web.Release.config 
+
+# Test place
+LuxuryAPIv2/Test
