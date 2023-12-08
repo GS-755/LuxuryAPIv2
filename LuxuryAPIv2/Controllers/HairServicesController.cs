@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Http;
 using LuxuryAPIv2.Models;
 using LuxuryAPIv2.Adapters;
@@ -10,7 +11,7 @@ namespace LuxuryAPIv2.Controllers
 {
     public class HairServicesController : ApiController
     {
-        // GET: api/HairServicesd
+        // GET: api/HairServices
         public HairServiceNode Get()
         {
             // Define node for export
@@ -51,7 +52,7 @@ namespace LuxuryAPIv2.Controllers
             // Execute Adapter method
             HairService[] hairServices = HairServicesAdapter.GetItem(id);
             // Define data and state to node
-            if (hairServices == null)
+            if (hairServices == null || hairServices.Length == 0)
             {
                 node.State = new NonQuery[]
                 {
@@ -105,15 +106,62 @@ namespace LuxuryAPIv2.Controllers
         }
 
         // PUT: api/HairServices/5
-        public void Put(int id, [FromBody] HairService hairService)
+        [HttpPost]
+        public HairServiceNode Put(int id, [FromBody] HairService hairService)
         {
+            StatusAdapter.Clear();
+            HairServiceNode node = new HairServiceNode();
+            try
+            {
+                HairService foundHS = HairServicesAdapter.GetItem(id).FirstOrDefault();
+                if(foundHS != null)
+                {
+                    string rows_affected = HairServicesAdapter.UpdateData(hairService);
+                    HairService[] updatedSvc = HairServicesAdapter.GetItem(id).ToArray();
+                    StatusAdapter.AddItem(new NonQuery(200, rows_affected, true));
 
+                    node.HairServices = updatedSvc;
+                    node.State = StatusAdapter.CurrentStatus;
+                }
+                else
+                {
+                    StatusAdapter.AddItem(new NonQuery(404, "Not found", false));
+                    node.State = StatusAdapter.CurrentStatus;
+                }
+            }
+            catch(Exception ex)
+            {
+                StatusAdapter.AddItem(new NonQuery(500, ex.Message, false));
+                node.State = StatusAdapter.CurrentStatus;
+            }
+
+            return node;
         }
 
         // DELETE: api/HairServices/5
-        public void Delete(int id)
+        [HttpDelete]
+        public NonQuery[] Delete(int id)
         {
+            StatusAdapter.Clear();
+            try
+            {
+                HairService foundHS = HairServicesAdapter.GetItem(id).FirstOrDefault();
+                if (foundHS != null)
+                {
+                    string rows_affected = HairServicesAdapter.DeleteData(foundHS.IdSvc);
+                    StatusAdapter.AddItem(new NonQuery(200, rows_affected, true));
+                }
+                else
+                {
+                    StatusAdapter.AddItem(new NonQuery(404, "Not found", false));
+                }
+            }
+            catch (Exception ex)
+            {
+                StatusAdapter.AddItem(new NonQuery(500, ex.Message, false));
+            }
 
+            return StatusAdapter.CurrentStatus.ToArray();
         }
     }
 }

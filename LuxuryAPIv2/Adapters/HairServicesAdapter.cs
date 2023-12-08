@@ -114,5 +114,51 @@ namespace LuxuryAPIv2.Adapters
 
             return result;
         }
+        public static string UpdateData(HairService hairService)
+        {
+            // Open connection
+            conn.Open();
+            // Build SQL Executor
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = @"
+                                UPDATE HairServices 
+                                SET Name = @Name, 
+                                    Price = @Price, 
+                                    IdCate = @IdCate 
+                                WHERE IdSvc = @IdSvc;
+                               ";
+            cmd.Parameters.AddWithValue("@Name", hairService.Name);
+            cmd.Parameters.AddWithValue("@Price", hairService.Price);
+            cmd.Parameters.AddWithValue("@IdCate", hairService.IdCate);
+            cmd.Parameters.AddWithValue("@IdSvc", hairService.IdSvc);
+            // Build SQL Non-query executor
+            int rows_affected = cmd.ExecuteNonQuery();
+            string result = $"({rows_affected}) row(s) affected!";
+            // Close SQL connection
+            conn.Close();
+
+            return result;
+        }
+        public static string DeleteData(int IdSvc)
+        {
+            // Open connection
+            conn.Open();
+            // Build SQL Executor
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = @"
+                                DELETE HairServices 
+                                    WHERE IdSvc = @IdSvc;
+                               ";
+            cmd.Parameters.AddWithValue("@IdSvc", IdSvc);
+            // Build SQL Non-query executor
+            int rows_affected = cmd.ExecuteNonQuery();
+            string result = $"({rows_affected}) row(s) affected!";
+            // Close SQL connection
+            conn.Close();
+
+            return result;
+        }
     }
 }
