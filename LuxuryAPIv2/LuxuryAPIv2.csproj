@@ -205,6 +205,7 @@
     </Compile>
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\HairService.cs" />
+    <Compile Include="Models\Node\CategoryNode.cs" />
     <Compile Include="Models\Node\HairServiceNode.cs" />
     <Compile Include="Models\Status\NonQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

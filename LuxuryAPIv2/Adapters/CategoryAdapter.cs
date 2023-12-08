@@ -97,7 +97,7 @@ namespace LuxuryAPIv2.Adapters
 
             return result;
         }
-        public static string DeleteData(Category category)
+        public static string DeleteData(int IdCate)
         {
             // Open connection
             conn.Open();
@@ -105,7 +105,7 @@ namespace LuxuryAPIv2.Adapters
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
             cmd.CommandText = @"DELETE Category WHERE IdCate = @IdCate;";
-            cmd.Parameters.AddWithValue("@IdCate", category.IdCate);
+            cmd.Parameters.AddWithValue("@IdCate", IdCate);
             // Build SQL Non-query executor
             int rows_affected = cmd.ExecuteNonQuery();
             string result = $"({rows_affected}) row(s) affected!";
