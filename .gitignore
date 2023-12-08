@@ -17,5 +17,9 @@ LuxuryAPIv2/Web.config
 LuxuryAPIv2/Web.Debug.config
 LuxuryAPIv2/Web.Release.config 
 
+# Resources folder
+LuxuryAPIv2/Resources/Query
+LuxuryAPIv2/Resources/Pictures/*.*
+
 # Test place
 LuxuryAPIv2/Test
