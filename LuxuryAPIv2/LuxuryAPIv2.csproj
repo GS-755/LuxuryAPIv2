@@ -161,6 +161,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\Account\AccountsAdapter.cs" />
     <Compile Include="Adapters\Account\RolesAdapter.cs" />
     <Compile Include="Adapters\CategoryAdapter.cs" />
     <Compile Include="Adapters\HairServicesAdapter.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Account\Account.cs" />
     <Compile Include="Models\Account\Role.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\HairService.cs" />
@@ -216,6 +218,7 @@
     <Compile Include="Models\Node\StaffNode.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Models\Status\NonQuery.cs" />
+    <Compile Include="Models\Utils\SHA256.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
