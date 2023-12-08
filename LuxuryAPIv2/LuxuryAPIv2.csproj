@@ -163,6 +163,7 @@
   <ItemGroup>
     <Compile Include="Adapters\CategoryAdapter.cs" />
     <Compile Include="Adapters\HairServicesAdapter.cs" />
+    <Compile Include="Adapters\StaffAdapter.cs" />
     <Compile Include="Adapters\Status\StatusAdapter.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HairServicesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\StaffsController.cs" />
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -207,6 +209,8 @@
     <Compile Include="Models\HairService.cs" />
     <Compile Include="Models\Node\CategoryNode.cs" />
     <Compile Include="Models\Node\HairServiceNode.cs" />
+    <Compile Include="Models\Node\StaffNode.cs" />
+    <Compile Include="Models\Staff.cs" />
     <Compile Include="Models\Status\NonQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -231,6 +235,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Resources\Query\LuxuryDB.sql" />
+    <Content Include="Resources\Query\TestCase.sql" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
