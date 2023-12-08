@@ -73,6 +73,7 @@ namespace LuxuryAPIv2.Controllers
         }
 
         // POST: api/Staffs
+        [HttpPost]
         public StaffNode Post([FromBody] Staff staff)
         {
             // Define node for export
@@ -106,6 +107,7 @@ namespace LuxuryAPIv2.Controllers
         }
 
         // PUT: api/Staffs/5
+        [HttpPost]
         public StaffNode Put(int id, [FromBody] Staff staff)
         {
             StatusAdapter.Clear();
