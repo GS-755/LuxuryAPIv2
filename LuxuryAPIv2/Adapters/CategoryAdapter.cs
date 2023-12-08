@@ -58,6 +58,37 @@ namespace LuxuryAPIv2.Adapters
                 // Return data
                 return fetchList;
             }
+            // Close the reader & connection
+            reader.Close();
+            conn.Close();
+
+            // Return null data
+            return null;
+        }
+
+        //Method(s) for cateList
+        public static void AddItem(Category category)
+        {
+            listCate.Add(category);
+        }
+        // API Function(s)
+        public static Category[] GetAll()
+        {
+            ListCate = FetchData();
+            if(ListCate != null)
+            {
+                return ListCate.ToArray();
+            }
+
+            return null;
+        }
+        public static Category[] GetItem(int IdCate)
+        {
+            ListCate = FetchData();
+            if (ListCate != null)
+            {
+                return ListCate.Where(k => k.IdCate == IdCate).ToArray();
+            }
 
             return null;
         }
@@ -113,33 +144,6 @@ namespace LuxuryAPIv2.Adapters
             conn.Close();
 
             return result;
-        }
-        //Method(s) for cateList
-        public static void AddItem(Category category)
-        {
-            listCate.Add(category);
-        }
-        public static void DeleteItem(Category category)
-        {
-            listCate.Remove(category);
-        }
-        public static void Clear()
-        {
-            listCate.Clear();
-        }
-        // API Function(s)
-        public static Category[] GetAll()
-        {
-            ListCate = FetchData();
-
-            return ListCate.ToArray();
-        }
-        public static Category[] GetItem(int IdCate)
-        {
-            ListCate = FetchData();
-            Category[] foundItem = ListCate.Where(k => k.IdCate == IdCate).ToArray();
-
-            return ListCate.Where(k => k.IdCate == IdCate).ToArray();
         }
     }
 }
