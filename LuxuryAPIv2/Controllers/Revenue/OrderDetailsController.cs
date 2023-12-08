@@ -1,35 +1,100 @@
 ﻿using System.Web.Http;
-using System.Collections.Generic;
+using LuxuryAPIv2.Models.Status;
 using LuxuryAPIv2.Models.Revenue;
+using LuxuryAPIv2.Adapters.Status;
+using LuxuryAPIv2.Adapters.Revenue;
+using LuxuryAPIv2.Models.Node.Revenue;
+using System;
+using System.Linq;
 
 namespace LuxuryAPIv2.Controllers.Revenue
 {
     public class OrderDetailsController : ApiController
     {
         // GET: api/OrderDetails
-        public IEnumerable<string> Get()
+        public OrderDetailsNode Get()
         {
-            return new string[] { "value1", "value2" };
+            // Define node for export
+            OrderDetailsNode node = new OrderDetailsNode();
+
+            // Wipe state list
+            StatusAdapter.Clear();
+            // Execute Adapter method
+            OrderDetails[] orderDetails = OrderDetailsAdapter.GetAll();
+            // Define data and state to node 
+            if (orderDetails == null)
+            {
+                node.State = new NonQuery[]
+                {
+                    new NonQuery(204, "No content", false)
+                };
+            }
+            else
+            {
+                node.State = new NonQuery[]
+                {
+                    new NonQuery(200, "GET Ok", true)
+                };
+                node.OrderDetails = orderDetails;
+            }
+
+            // Export node to JSON
+            return node;
         }
 
         // GET: api/OrderDetails/5
-        public string Get(int id)
+        public OrderDetailsNode Get(int id)
         {
-            return "value";
+            // Define node for export
+            OrderDetailsNode node = new OrderDetailsNode();
+            // Wipe state list
+            StatusAdapter.Clear();
+            // Execute Adapter method
+            OrderDetails[] orderDetails = OrderDetailsAdapter.GetItem(id);
+            // Define data and state to node
+            if (orderDetails == null || orderDetails.Length == 0)
+            {
+                node.State = new NonQuery[]
+                {
+                    new NonQuery(404, "Not found", false)
+                };
+            }
+            else
+            {
+                node.State = new NonQuery[]
+                {
+                    new NonQuery(200, "GET Ok", true)
+                };
+                node.OrderDetails = orderDetails;
+            }
+
+            // Export node to JSON
+            return node;
         }
 
         // POST: api/OrderDetails
         [HttpPost]
-        public void Post([FromBody] OrderDetails orderDetails)
+        public NonQuery[] Post([FromBody] OrderDetails orderDetails)
         {
+            // Wipe state list
+            StatusAdapter.Clear();
+            try
+            {
+                // Execute Adapter method
+                string rows_affected = OrderDetailsAdapter.InsertData(orderDetails);
+                StatusAdapter.AddItem(new NonQuery(200, rows_affected, true));
 
-        }
+                // Export state to JSON
+                return StatusAdapter.CurrentStatus.ToArray();
+            }
+            catch (Exception ex)
+            {
+                // Define state to Node
+                StatusAdapter.AddItem(new NonQuery(500, ex.Message, false));
 
-        // PUT: api/OrderDetails/5
-        [HttpPost]
-        public void Put(int id, [FromBody] OrderDetails orderDetails)
-        {
-
+                // Export state to JSON
+                return StatusAdapter.CurrentStatus.ToArray();
+            }
         }
     }
 }

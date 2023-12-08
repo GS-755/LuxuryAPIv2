@@ -112,5 +112,25 @@ namespace LuxuryAPIv2.Adapters.Revenue
 
             return result;
         }
+        public static string DeleteData(int IDOrder)
+        {
+            // Open connection
+            conn.Open();
+            // Build SQL Executor
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = @"
+                                DELETE Orders 
+                                    WHERE IDOrder = @IDOrder;
+                               ";
+            cmd.Parameters.AddWithValue("@IDOrder", IDOrder);
+            // Build SQL Non-query executor
+            int rows_affected = cmd.ExecuteNonQuery();
+            string result = $"({rows_affected}) row(s) affected!";
+            // Close SQL connection
+            conn.Close();
+
+            return result;
+        }
     }
 }
