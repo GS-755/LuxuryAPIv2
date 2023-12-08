@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using LuxuryAPIv2.Data;
 using System.Data.SqlClient;
 using LuxuryAPIv2.Models.Account;
@@ -60,10 +61,33 @@ namespace LuxuryAPIv2.Adapters.Account
             // Return null data
             return null;
         }
-        //Method(s) for cateList
+
+        // Method(s) for ListRole
         public static void Clear()
         {
             ListRole.Clear();
+        }
+
+        // API Function(s)
+        public static Role[] GetAll()
+        {
+            ListRole = FetchData();
+            if (ListRole != null)
+            {
+                return ListRole.ToArray();
+            }
+
+            return null;
+        }
+        public static Role[] GetItem(int IDRole)
+        {
+            ListRole = FetchData();
+            if (ListRole != null)
+            {
+                return ListRole.Where(k => k.IDRole == IDRole).ToArray();
+            }
+
+            return null;
         }
     }
 }

@@ -201,6 +201,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HairServicesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\StaffsController.cs" />
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -209,6 +210,7 @@
     <Compile Include="Models\Account\Role.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\HairService.cs" />
+    <Compile Include="Models\Node\Account\RoleNode.cs" />
     <Compile Include="Models\Node\CategoryNode.cs" />
     <Compile Include="Models\Node\HairServiceNode.cs" />
     <Compile Include="Models\Node\StaffNode.cs" />
