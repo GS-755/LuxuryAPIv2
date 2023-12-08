@@ -64,7 +64,11 @@ namespace LuxuryAPIv2.Adapters
                 // Return data
                 return fetchList;
             }
+            // Close the reader & connection
+            reader.Close();
+            conn.Close();
 
+            // Return null data
             return null;
         }
         //Method(s) for cateList
@@ -76,15 +80,22 @@ namespace LuxuryAPIv2.Adapters
         public static Staff[] GetAll()
         {
             ListStaff = FetchData();
+            if (ListStaff != null)
+            {
+                return ListStaff.ToArray();
+            }
 
-            return ListStaff.ToArray();
+            return null;
         }
         public static Staff[] GetItem(int IDStaff)
         {
             ListStaff = FetchData();
-            Staff[] foundItem = ListStaff.Where(k => k.IDStaff == IDStaff).ToArray();
+            if (ListStaff != null)
+            {
+                return ListStaff.Where(k => k.IDStaff == IDStaff).ToArray();
+            }
 
-            return ListStaff.Where(k => k.IDStaff == IDStaff).ToArray();
+            return null;
         }
         public static string InsertData(Staff staff)
         {

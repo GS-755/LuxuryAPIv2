@@ -200,6 +200,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HairServicesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\StaffsController.cs" />
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -208,6 +209,7 @@
     <Compile Include="Models\HairService.cs" />
     <Compile Include="Models\Node\CategoryNode.cs" />
     <Compile Include="Models\Node\HairServiceNode.cs" />
+    <Compile Include="Models\Node\StaffNode.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Models\Status\NonQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
