@@ -165,6 +165,8 @@
     <Compile Include="Adapters\Account\RolesAdapter.cs" />
     <Compile Include="Adapters\CategoryAdapter.cs" />
     <Compile Include="Adapters\HairServicesAdapter.cs" />
+    <Compile Include="Adapters\Revenue\OrderDetailsAdapter.cs" />
+    <Compile Include="Adapters\Revenue\OrdersAdapter.cs" />
     <Compile Include="Adapters\StaffAdapter.cs" />
     <Compile Include="Adapters\Status\StatusAdapter.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -204,6 +206,8 @@
     <Compile Include="Controllers\HairServicesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Account\RolesController.cs" />
+    <Compile Include="Controllers\Revenue\OrderDetailsController.cs" />
+    <Compile Include="Controllers\Revenue\OrdersController.cs" />
     <Compile Include="Controllers\StaffsController.cs" />
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -217,7 +221,11 @@
     <Compile Include="Models\Node\Account\RoleNode.cs" />
     <Compile Include="Models\Node\CategoryNode.cs" />
     <Compile Include="Models\Node\HairServiceNode.cs" />
+    <Compile Include="Models\Node\Revenue\OrderDetailsNode.cs" />
+    <Compile Include="Models\Node\Revenue\OrdersNode.cs" />
     <Compile Include="Models\Node\StaffNode.cs" />
+    <Compile Include="Models\Revenue\OrderDetails.cs" />
+    <Compile Include="Models\Revenue\Orders.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Models\Status\NonQuery.cs" />
     <Compile Include="Models\Utils\SHA256.cs" />
