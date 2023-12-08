@@ -6,106 +6,176 @@ using LuxuryAPIv2.Adapters;
 using LuxuryAPIv2.Models.Status;
 using System.Collections.Generic;
 using LuxuryAPIv2.Adapters.Status;
+using LuxuryAPIv2.Models.Node;
 
 namespace LuxuryAPIv2.Controllers
 {
     public class CategoryController : ApiController
     {
         // GET: api/Category
-        public IEnumerable<Category> Get()
+        public CategoryNode Get()
         {
-            return CategoryAdapter.GetAll();
+            // Define node for export
+            CategoryNode node = new CategoryNode();
+
+            // Wipe state list
+            StatusAdapter.Clear();
+            // Execute Adapter method
+            Category[] categories = CategoryAdapter.GetAll();
+            // Define data and state to node 
+            if (categories == null)
+            {
+                node.State = new NonQuery[]
+                {
+                    new NonQuery(204, "No content", false)
+                };
+            }
+            else
+            {
+                node.State = new NonQuery[]
+                {
+                    new NonQuery(200, "GET Ok", true)
+                };
+                node.Category = categories;
+            }
+
+            // Export node to JSON
+            return node;
         }
 
         // GET: api/Category/5
-        public IEnumerable<Category> Get(int id)
+        public CategoryNode Get(int id)
         {
-            return CategoryAdapter.GetItem(id);
+            // Define node for export
+            CategoryNode node = new CategoryNode();
+            // Wipe state list
+            StatusAdapter.Clear();
+            // Execute Adapter method
+            Category[] categories = CategoryAdapter.GetItem(id);
+            // Define data and state to node
+            if (categories == null || categories.Length == 0)
+            {
+                node.State = new NonQuery[]
+                {
+                    new NonQuery(404, "Not found", false)
+                };
+            }
+            else
+            {
+                node.State = new NonQuery[]
+                {
+                    new NonQuery(200, "GET Ok", true)
+                };
+                node.Category = categories;
+            }
+
+            // Export node to JSON
+            return node;
         }
 
         // POST: api/Category
         [HttpPost]
-        public NonQuery[] Post([FromBody] Category category)
+        public CategoryNode Post([FromBody] Category category)
         {
+            // Define node for export
+            CategoryNode node = new CategoryNode();
+            // Wipe state list
+            StatusAdapter.Clear();
+            // Assign id for category
+            category.IdCate = CategoryAdapter.GetCurrentId() + 1;
             try
             {
+                // Execute Adapter method
                 string rows_affected = CategoryAdapter.InsertData(category);
-
-                //Return status into JSON
-                StatusAdapter.Clear();
+                // Define data and state to node
+                Category[] addedCategory = CategoryAdapter.GetItem(category.IdCate);
                 StatusAdapter.AddItem(new NonQuery(200, rows_affected, true));
+                node.Category = addedCategory;
+                node.State = StatusAdapter.CurrentStatus;
 
-                return StatusAdapter.StatusList.ToArray();
+                // Export node to JSON
+                return node;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                StatusAdapter.Clear();
+                // Define state to Node
                 StatusAdapter.AddItem(new NonQuery(500, ex.Message, false));
+                node.State = StatusAdapter.CurrentStatus;
 
-                return StatusAdapter.StatusList.ToArray();
+                // Export node to JSON 
+                return node;
             }
         }
 
         // PUT: api/Category/5
         [HttpPost]
-        public NonQuery[] Put(int id, [FromBody] Category category)
+        public CategoryNode Put(int id, [FromBody] Category category)
         {
+            // Define node for export
+            CategoryNode node = new CategoryNode();
+            // Wipe state list
+            StatusAdapter.Clear();
             try
             {
-                Category findCate = CategoryAdapter.GetAll().FirstOrDefault(k => k.IdCate == id);
-                if(findCate != null)
+                // Find category by id
+                Category foundCate = CategoryAdapter.GetItem(id).FirstOrDefault();
+                if (foundCate != null)
                 {
+                    // Execute Adapter method
                     string rows_affected = CategoryAdapter.UpdateData(category);
-                    //Return status into JSON
-                    StatusAdapter.Clear();
+                    // Verify if object is saved to database
+                    Category[] updatedCate = CategoryAdapter.GetItem(id).ToArray();
                     StatusAdapter.AddItem(new NonQuery(200, rows_affected, true));
+                    // Define data & state to Node 
+                    node.Category = updatedCate;
+                    node.State = StatusAdapter.CurrentStatus;
                 }
                 else
                 {
-                    StatusAdapter.Clear();
-                    StatusAdapter.AddItem(new NonQuery(404, "Object not found.", false));
+                    // Define state to Node 
+                    StatusAdapter.AddItem(new NonQuery(404, "Not found", false));
+                    node.State = StatusAdapter.CurrentStatus;
                 }
-
-                return StatusAdapter.StatusList.ToArray();
             }
             catch (Exception ex)
             {
-                StatusAdapter.Clear();
+                // Define state to Node 
                 StatusAdapter.AddItem(new NonQuery(500, ex.Message, false));
-
-                return StatusAdapter.StatusList.ToArray();
+                node.State = StatusAdapter.CurrentStatus;
             }
+
+            // Export node to JSON
+            return node;
         }
 
         // DELETE: api/Category/5
         [HttpDelete]
         public NonQuery[] Delete(int id)
         {
+            // Wipe state list
+            StatusAdapter.Clear();
             try
             {
-                Category findCate = CategoryAdapter.GetAll().FirstOrDefault(k => k.IdCate == id);
-                if (findCate != null)
+                // Find category by id
+                Category foundCate = CategoryAdapter.GetItem(id).FirstOrDefault();
+                if (foundCate != null)
                 {
-                    string rows_affected = CategoryAdapter.DeleteData(findCate);
-                    //Return status into JSON
-                    StatusAdapter.Clear();
+                    // Execute Adapter method
+                    string rows_affected = CategoryAdapter.DeleteData(foundCate.IdCate);
                     StatusAdapter.AddItem(new NonQuery(200, rows_affected, true));
                 }
                 else
                 {
-                    StatusAdapter.Clear();
-                    StatusAdapter.AddItem(new NonQuery(404, "Object not found.", false));
+                    StatusAdapter.AddItem(new NonQuery(404, "Not found", false));
                 }
-
-                return StatusAdapter.StatusList.ToArray();
             }
             catch (Exception ex)
             {
-                StatusAdapter.Clear();
                 StatusAdapter.AddItem(new NonQuery(500, ex.Message, false));
-
-                return StatusAdapter.StatusList.ToArray();
             }
+
+            // Return state to JSON
+            return StatusAdapter.CurrentStatus.ToArray();
         }
     }
 }
