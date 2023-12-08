@@ -73,6 +73,7 @@ namespace LuxuryAPIv2.Controllers
         }
 
         // POST: api/HairServices
+        [HttpPost]
         public HairServiceNode Post([FromBody] HairService hairService)
         {
             // Define node for export
