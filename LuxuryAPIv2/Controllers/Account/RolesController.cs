@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Http.Cors;
 using LuxuryAPIv2.Models.Status;
 using LuxuryAPIv2.Models.Account;
 using LuxuryAPIv2.Adapters.Status;
@@ -7,6 +8,7 @@ using LuxuryAPIv2.Models.Node.Account;
 
 namespace LuxuryAPIv2.Controllers
 {
+    [EnableCors(origins: "http://localhost:7610", headers: "*", methods: "*")]
     public class RolesController : ApiController
     {
         // GET: api/Roles
