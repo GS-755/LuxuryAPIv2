@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace LuxuryAPIv2
 {
@@ -6,11 +7,13 @@ namespace LuxuryAPIv2
     {
         public static void Register(HttpConfiguration config)
         {
+            // CORS Policy settings
+            EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
             // Web API configuration and services
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-            config.EnableCors();
+            config.EnableCors(cors);
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

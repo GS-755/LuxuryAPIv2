@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Http;
-using System.Web.Http.Cors;
 using LuxuryAPIv2.Models.Status;
 using LuxuryAPIv2.Models.Revenue;
 using LuxuryAPIv2.Adapters.Status;
@@ -10,7 +9,6 @@ using LuxuryAPIv2.Models.Node.Revenue;
 
 namespace LuxuryAPIv2.Controllers.Revenue
 {
-    [EnableCors(origins: "http://localhost:7610", headers: "*", methods: "*")]
     public class OrderDetailsController : ApiController
     {
         // GET: api/OrderDetails

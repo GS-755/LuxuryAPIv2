@@ -10,7 +10,6 @@ using LuxuryAPIv2.Adapters.Status;
 
 namespace LuxuryAPIv2.Controllers
 {
-    [EnableCors(origins: "http://localhost:7610", headers: "*", methods: "*")]
     public class HairServicesController : ApiController
     {
         // GET: api/HairServices
