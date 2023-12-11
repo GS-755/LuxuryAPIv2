@@ -3,10 +3,9 @@ using System.Linq;
 using System.Web.Http;
 using LuxuryAPIv2.Models;
 using LuxuryAPIv2.Adapters;
-using LuxuryAPIv2.Models.Status;
-using System.Collections.Generic;
-using LuxuryAPIv2.Adapters.Status;
 using LuxuryAPIv2.Models.Node;
+using LuxuryAPIv2.Models.Status;
+using LuxuryAPIv2.Adapters.Status;
 
 namespace LuxuryAPIv2.Controllers
 {

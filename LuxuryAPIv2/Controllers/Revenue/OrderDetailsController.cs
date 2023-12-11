@@ -1,11 +1,11 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Linq;
+using System.Web.Http;
 using LuxuryAPIv2.Models.Status;
 using LuxuryAPIv2.Models.Revenue;
 using LuxuryAPIv2.Adapters.Status;
 using LuxuryAPIv2.Adapters.Revenue;
 using LuxuryAPIv2.Models.Node.Revenue;
-using System;
-using System.Linq;
 
 namespace LuxuryAPIv2.Controllers.Revenue
 {
