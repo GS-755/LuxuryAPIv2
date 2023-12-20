@@ -21,11 +21,6 @@ namespace LuxuryAPIv2.Adapters
             set { listCate = value; }
         }
 
-        // Method(s) that direct-interact with server
-        public static int GetCurrentId()
-        {
-            return FetchData().Max(k => k.IdCate);
-        }
         public static List<Category> FetchData()
         {
             // Define a linked list
@@ -46,8 +41,9 @@ namespace LuxuryAPIv2.Adapters
                     // Read fetched data
                     int IdCate = Convert.ToInt32(reader["IdCate"]);
                     string Name = Convert.ToString(reader["Name"]);
+                    string Image = Convert.ToString(reader["Image"]);
                     // Add data to linked list 
-                    fetchList.Add(new Category(IdCate, Name));
+                    fetchList.Add(new Category(IdCate, Name, Image));
                 }
                 // Close the reader & connection
                 reader.Close();
@@ -99,8 +95,7 @@ namespace LuxuryAPIv2.Adapters
             // Build SQL Executor
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
-            cmd.CommandText = @"INSERT INTO Category VALUES(@IdCate, @Name);";
-            cmd.Parameters.AddWithValue("@IdCate", category.IdCate);
+            cmd.CommandText = @"INSERT INTO Category VALUES(@Name);";
             cmd.Parameters.AddWithValue("@Name", category.Name);
             // Build SQL Non-query executor
             int rows_affected = cmd.ExecuteNonQuery();

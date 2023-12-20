@@ -80,14 +80,12 @@ namespace LuxuryAPIv2.Controllers
             CategoryNode node = new CategoryNode();
             // Wipe state list
             StatusAdapter.Clear();
-            // Assign id for category
-            category.IdCate = CategoryAdapter.GetCurrentId() + 1;
             try
             {
                 // Execute Adapter method
                 string rows_affected = CategoryAdapter.InsertData(category);
                 // Define data and state to node
-                Category[] addedCategory = CategoryAdapter.GetItem(category.IdCate);
+                Category[] addedCategory = CategoryAdapter.GetItem(Convert.ToInt32(category.IdCate));
                 StatusAdapter.AddItem(new NonQuery(200, rows_affected, true));
                 node.Category = addedCategory;
                 node.State = StatusAdapter.CurrentStatus;
@@ -160,7 +158,7 @@ namespace LuxuryAPIv2.Controllers
                 if (foundCate != null)
                 {
                     // Execute Adapter method
-                    string rows_affected = CategoryAdapter.DeleteData(foundCate.IdCate);
+                    string rows_affected = CategoryAdapter.DeleteData(Convert.ToInt32(foundCate.IdCate));
                     StatusAdapter.AddItem(new NonQuery(200, rows_affected, true));
                 }
                 else
